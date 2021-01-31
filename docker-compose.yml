@@ -1,0 +1,39 @@
+version: "2"
+services:
+  api:
+    container_name: api
+    build: ./api/
+    volumes:
+      - './api:/home/node/app'
+      - './api/package.json:/home/node/app/package.json'
+      - './api/package-lock.json:/home/node/app/package-lock.json'
+      - '/home/node/app/node_modules/'
+    environment:
+      DB_URL: 'mongodb://root:123456@db:27017/blog?authSource=admin'
+      PORT: 9000
+    ports:
+      - '9000:9000'
+    depends_on:
+      - 'db'
+  frontend:
+    container_name: frontend
+    build: ./frontend/
+    volumes:
+      - './frontend:/home/node/app'
+      - './frontend/package.json:/home/node/app/package.json'
+      - './frontend/package-lock.json:/home/node/app/package-lock.json'
+      - '/home/node/app/node_modules/'
+    ports:
+      - '3000:3000'
+  db:
+    container_name: db
+    restart: always
+    image: mongo:latest
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: 'root'
+      MONGO_INITDB_ROOT_PASSWORD: '123456'
+      MONGO_INITDB_DATABASE: 'blog'
+    volumes:
+      - './data/db:/data/db'
+    ports:
+      - '27017:27017'
