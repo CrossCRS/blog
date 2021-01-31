@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import PostPreview from './PostPreview';
 import PostPreviewSkeleton from './PostPreviewSkeleton';
 
-const POSTS_SERVICE_URL = 'http://localhost:9000/api/posts';
+const POSTS_SERVICE_URL = `${process.env.REACT_APP_API_ROUTE}/posts`;
 
 function PostsView() {
   const { pageId } = useParams();
