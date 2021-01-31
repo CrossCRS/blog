@@ -1,16 +1,14 @@
 import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
-
-import Layout from './components/Layout';
-
-import PostsView from './components/PostsView';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import MainRoute from './components/MainRoute';
 
 function App() {
   return (
     <BrowserRouter>
-      <Layout>
-        <PostsView />
-      </Layout>
+      <Switch>
+        <Route component={MainRoute} />
+        {/* TODO: Admin route */}
+      </Switch>
     </BrowserRouter>
   );
 }

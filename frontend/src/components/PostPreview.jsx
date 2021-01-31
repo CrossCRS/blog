@@ -23,10 +23,10 @@ function PostPreview({ post, targetLength, allowFullLength }) {
 
 PostPreview.propTypes = {
   post: PropTypes.shape({
-    _id: PropTypes.number.isRequired,
+    _id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     author_id: PropTypes.shape({
-      _id: PropTypes.number.isRequired,
+      _id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
     }).isRequired,
     content: PropTypes.string.isRequired,
