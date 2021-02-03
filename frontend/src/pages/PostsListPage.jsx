@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-import PostPreview from './PostPreview';
-import PostPreviewSkeleton from './PostPreviewSkeleton';
+import PostPreview from '../components/PostPreview';
+import PostPreviewSkeleton from '../components/PostPreviewSkeleton';
 
-import Pagination from './SimplePagination';
+import Pagination from '../components/SimplePagination';
 
-import axiosInstance from './api/axiosInstance';
+import axiosInstance from '../components/api/axiosInstance';
 
 function PostsView() {
   const { pageId = 1 } = useParams();
