@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import PostPreview from './PostPreview';
 import PostPreviewSkeleton from './PostPreviewSkeleton';
 
-const POSTS_SERVICE_URL = `${process.env.REACT_APP_API_ROUTE}/posts`;
+import axiosInstance from './api/axiosInstance';
 
 function PostsView() {
   const { pageId } = useParams();
@@ -15,14 +15,13 @@ function PostsView() {
   const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
-    fetch(`${POSTS_SERVICE_URL}/${currentPage}`)
-      .then((response) => response.json())
-      .then((result) => {
-        setPosts(result);
+    axiosInstance.get(`/posts/${currentPage}`)
+      .then((response) => {
+        setPosts(response.data);
         setIsFetching(false);
       })
-      .catch((e) => {
-        console.log(e);
+      .catch((error) => {
+        console.log(error);
         setIsFetching(false);
         setHasError(true);
       });
