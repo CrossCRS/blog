@@ -5,6 +5,32 @@
 
 @layer base {
   a {
-    @apply font-medium;
+    @apply font-medium hover:text-green-500 text-green-600;
+  }
+
+  h1 {
+    @apply text-3xl text-black font-medium my-4;
+  }
+  h2 {
+    @apply text-2xl text-black font-medium my-4;
+  }
+  h3 {
+    @apply text-xl text-black font-medium my-4;
+  }
+  h4 {
+    @apply text-lg text-black font-medium my-4;
+  }
+  h5 {
+    @apply text-black font-medium my-4;
+  }
+  h6 {
+    @apply font-medium my-4;
+  }
+
+  ul {
+    @apply list-disc list-inside;
+  }
+  ol {
+    @apply list-decimal list-inside;
   }
 }

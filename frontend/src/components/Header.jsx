@@ -25,17 +25,11 @@ function Header() {
         </div>
       </div>
 
-      <ul className={`uppercase ${isMenuHidden && 'hidden'} md:flex`}>
-        <li>
-          <TextLink to="/" active>Home</TextLink>
-        </li>
-        <li>
-          <TextLink to="/">About Me</TextLink>
-        </li>
-        <li>
-          <TextLink to="/">Contact</TextLink>
-        </li>
-      </ul>
+      <div className={`uppercase ${isMenuHidden && 'hidden'} md:flex`}>
+        <TextLink to="/" active>Home</TextLink>
+        <TextLink to="/">About Me</TextLink>
+        <TextLink to="/">Contact</TextLink>
+      </div>
     </header>
   );
 }

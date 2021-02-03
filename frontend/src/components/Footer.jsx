@@ -11,40 +11,26 @@ function Footer() {
 
   return (
     <footer className="flex flex-col items-center w-full p-6 bg-white">
-      <ul className="flex">
-        <li>
-          <Link to="/" className={classSocial}>
-            <FontAwesomeIcon icon={faTwitter} />
-          </Link>
-        </li>
-        <li>
-          <Link to="/" className={classSocial}>
-            <FontAwesomeIcon icon={faFacebook} />
-          </Link>
-        </li>
-        <li>
-          <Link to="/" className={classSocial}>
-            <FontAwesomeIcon icon={faGithub} />
-          </Link>
-        </li>
-        <li>
-          <Link to="/" className={classSocial}>
-            <FontAwesomeIcon icon={faLinkedinIn} />
-          </Link>
-        </li>
-      </ul>
+      <div className="flex">
+        <Link to="/" className={classSocial}>
+          <FontAwesomeIcon icon={faTwitter} />
+        </Link>
+        <Link to="/" className={classSocial}>
+          <FontAwesomeIcon icon={faFacebook} />
+        </Link>
+        <Link to="/" className={classSocial}>
+          <FontAwesomeIcon icon={faGithub} />
+        </Link>
+        <Link to="/" className={classSocial}>
+          <FontAwesomeIcon icon={faLinkedinIn} />
+        </Link>
+      </div>
 
-      <ul className="flex">
-        <li>
-          <TextLink to="/" light>Contact</TextLink>
-        </li>
-        <li>
-          <TextLink to="/" light>Terms</TextLink>
-        </li>
-        <li>
-          <TextLink to="/" light>Privacy</TextLink>
-        </li>
-      </ul>
+      <div className="flex">
+        <TextLink to="/" light>Contact</TextLink>
+        <TextLink to="/" light>Terms</TextLink>
+        <TextLink to="/" light>Privacy</TextLink>
+      </div>
 
       <div className="text-gray-600 font-light text-sm py-2">&copy; Norbert Budzyński 2021</div>
     </footer>

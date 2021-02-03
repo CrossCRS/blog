@@ -7,16 +7,17 @@ import dateFormat from 'dateformat';
 
 function PostPreview({ post, targetLength, allowFullLength }) {
   const content = allowFullLength ? post.content : ellipsize(post.content, targetLength); // TODO: Markdown support
+  const postUrl = `/${post._id}/${post.title.toLowerCase().replace(/\W+/g, '-')}`;
 
   return (
     <div className="bg-white py-6 px-6 my-6 md:my-12 shadow-md border border-gray-200 rounded-md">
-      <Link to={`/post/${post._id}`} className="font-medium text-2xl text-gray-900">{post.title}</Link>
+      <Link to={postUrl} className="my-0 font-medium text-2xl text-gray-900">{post.title}</Link>
       <div className="flex justify-between">
-        <h6 className="font-light text-sm text-gray-500">Posted by <Link to={`/user/${post.author_id._id}`} className="font-regular">{post.author_id.name}</Link></h6>
-        <h6 className="font-light text-sm text-gray-500">{dateFormat(post.posted_at, 'mmmm dS, yyyy')}</h6>
+        <span className="font-light text-sm text-gray-500">Posted by <Link to={`/user/${post.author_id._id}`} className="font-regular">{post.author_id.name}</Link></span>
+        <span className="font-light text-sm text-gray-500">{dateFormat(post.posted_at, 'mmmm dS, yyyy')}</span>
       </div>
       <p className="text-gray-600 my-4">{content}</p>
-      <Link to={`/post/${post._id}`} className="font-medium text-green-600">Read more</Link>
+      <Link to={postUrl} className="font-medium text-green-600">Read more</Link>
     </div>
   );
 }

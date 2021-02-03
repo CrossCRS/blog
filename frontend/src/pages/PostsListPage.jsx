@@ -8,7 +8,7 @@ import Pagination from '../components/SimplePagination';
 
 import axiosInstance from '../components/api/axiosInstance';
 
-function PostsView() {
+function PostsListPage() {
   const { pageId = 1 } = useParams();
 
   const [pageCount, setPageCount] = useState(0);
@@ -59,4 +59,4 @@ function PostsView() {
   );
 }
 
-export default PostsView;
+export default PostsListPage;
