@@ -4,16 +4,13 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 
+import TextLink from './core/TextLink';
+
 function Header() {
   const [isMenuHidden, setMenuHidden] = useState(true);
 
   const toggleMenuHidden = () => {
     setMenuHidden(!isMenuHidden);
-  };
-
-  const classes = {
-    links: 'inline-block py-2 md:px-4 text-gray-800 hover:text-green-500',
-    links_active: 'inline-block py-2 md:px-4 text-green-500 font-semibold',
   };
 
   return (
@@ -30,13 +27,13 @@ function Header() {
 
       <ul className={`uppercase ${isMenuHidden && 'hidden'} md:flex`}>
         <li>
-          <Link to="/" className={classes.links_active}>Home</Link>
+          <TextLink to="/" active>Home</TextLink>
         </li>
         <li>
-          <Link to="/" className={classes.links}>About Me</Link>
+          <TextLink to="/">About Me</TextLink>
         </li>
         <li>
-          <Link to="/" className={classes.links}>Contact</Link>
+          <TextLink to="/">Contact</TextLink>
         </li>
       </ul>
     </header>

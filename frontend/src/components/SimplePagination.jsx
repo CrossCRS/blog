@@ -14,9 +14,9 @@ function SimplePagination({ currentPage, pageCount }) {
     'justify-between': displayNewerLink,
   });
 
-  const linkClasses = classNames({
-    'text-lg hover:text-green-500': true,
-  });
+  const linkClasses = classNames(
+    'text-lg hover:text-green-500',
+  );
 
   return (
     <div className={containerClasses}>
