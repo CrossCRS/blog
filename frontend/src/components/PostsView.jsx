@@ -4,18 +4,28 @@ import { useParams } from 'react-router-dom';
 import PostPreview from './PostPreview';
 import PostPreviewSkeleton from './PostPreviewSkeleton';
 
+import Pagination from './SimplePagination';
+
 import axiosInstance from './api/axiosInstance';
 
 function PostsView() {
-  const { pageId } = useParams();
+  const { pageId = 1 } = useParams();
 
+  const [pageCount, setPageCount] = useState(0);
   const [posts, setPosts] = useState([]);
-  const [currentPage/* , setCurrentPage */] = useState(pageId || 1);
   const [isFetching, setIsFetching] = useState(true);
   const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
-    axiosInstance.get(`/posts/${currentPage}`)
+    axiosInstance.get('/posts/')
+      .then((response) => {
+        setPageCount(parseInt(response.data.pages_count, 10));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    axiosInstance.get(`/posts/${pageId}`)
       .then((response) => {
         setPosts(response.data);
         setIsFetching(false);
@@ -25,7 +35,7 @@ function PostsView() {
         setIsFetching(false);
         setHasError(true);
       });
-  }, [currentPage]);
+  }, [pageId]);
 
   if (hasError) {
     return (
@@ -44,6 +54,7 @@ function PostsView() {
   return (
     <div>
       {posts.map((post) => <PostPreview key={post._id} post={post} />)}
+      <Pagination currentPage={parseInt(pageId, 10)} pageCount={pageCount} />
     </div>
   );
 }
