@@ -25,7 +25,7 @@ function Header() {
         </div>
       </div>
 
-      <div className={`flex uppercase ${isMenuHidden && 'hidden'} flex-col md:flex-row`}>
+      <div className={`flex uppercase ${isMenuHidden && 'hidden'} md:flex flex-col md:flex-row`}>
         <TextLink to="/" active>Home</TextLink>
         <TextLink to="/">About Me</TextLink>
         <TextLink to="/">Contact</TextLink>
