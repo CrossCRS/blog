@@ -16,7 +16,7 @@ function PostPage() {
   const [isFetching, setIsFetching] = useState(true);
 
   useEffect(() => {
-    axiosInstance.get(`/post/${postId}`)
+    axiosInstance.get(`/posts/${postId}`)
       .then((response) => {
         response.data.content = DOMPurify.sanitize(marked(response.data.content));
         setPost(response.data);

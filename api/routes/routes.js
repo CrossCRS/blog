@@ -5,8 +5,6 @@ module.exports = (app) => {
   // Posts
   app.route('/api/posts')
     .get(postController.get_all_posts);
-
-  // Post
-  app.route('/api/post/:postId')
+  app.route('/api/posts/:postId')
     .get(postController.get_post_by_id);
 };
