@@ -8,6 +8,8 @@ import Pagination from '../components/SimplePagination';
 
 import axiosInstance from '../components/api/axiosInstance';
 
+const POSTS_LIMIT = 5;
+
 function PostsListPage() {
   const { pageId = 1 } = useParams();
 
@@ -17,17 +19,10 @@ function PostsListPage() {
   const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
-    axiosInstance.get('/posts/')
+    axiosInstance.get(`/posts?skip=${(pageId - 1) * POSTS_LIMIT}&limit=${POSTS_LIMIT}`)
       .then((response) => {
-        setPageCount(parseInt(response.data.pages_count, 10));
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
-    axiosInstance.get(`/posts/${pageId}`)
-      .then((response) => {
-        setPosts(response.data);
+        setPageCount(Math.ceil(parseInt(response.data.size / POSTS_LIMIT, 10)));
+        setPosts(response.data.posts);
         setIsFetching(false);
       })
       .catch((error) => {

@@ -3,12 +3,10 @@
 ## /api/posts
 | **Route** | **GET** | **POST** | **DELETE** |
 |-----------------|----------------------------------------------------|------|--------|
-| /api/posts | Returns page count and post count | - | - |
-| /api/posts/**:page** | Returns **ITEMS\_PER\_PAGE** amount of posts at page **:page**| - | - |
-
-_**ITEMS\_PER\_PAGE** defined in controllers/post.controller.js_
+| /api/posts/?skip=**x**&limit=**y** | Returns posts with optional limit and skip params | - | - |
 
 ## /api/post
 | **Route** | **GET** | **POST** | **DELETE** |
 |-----------------|----------------------------|-------------------|----------------------------|
+| /api/post/info | Returns page count and post count | - | - |
 | /api/post/**:postId** | Returns a post of id **:postId** | - | - |

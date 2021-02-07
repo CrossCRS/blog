@@ -1,10 +1,9 @@
 const postController = require('../controllers/post.controller');
+const userController = require('../controllers/user.controller');
 
 module.exports = (app) => {
   // Posts
   app.route('/api/posts')
-    .get(postController.get_pages_count);
-  app.route('/api/posts/:page')
     .get(postController.get_all_posts);
 
   // Post
