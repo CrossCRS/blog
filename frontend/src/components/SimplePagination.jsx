@@ -15,7 +15,7 @@ function SimplePagination({ currentPage, pageCount, path }) {
   });
 
   const linkClasses = classNames(
-    'text-lg hover:text-green-500',
+    'text-lg hover:text-green-500 mx-4 md:mx-0',
   );
 
   return (
