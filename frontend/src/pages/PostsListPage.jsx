@@ -28,11 +28,10 @@ function PostsListPage({ user }) {
         if (!response.error) {
           setPageCount(Math.ceil(response.data.size / POSTS_LIMIT, 10));
           setPosts(response.data.posts);
-          setIsFetching(false);
         } else {
-          setIsFetching(false);
           setHasError(true);
         }
+        setIsFetching(false);
       })
       .catch((error) => {
         console.log(error);

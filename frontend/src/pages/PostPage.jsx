@@ -14,18 +14,32 @@ function PostPage() {
 
   const [post, setPost] = useState({});
   const [isFetching, setIsFetching] = useState(true);
+  const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
     axiosInstance.get(`/posts/${postId}`)
       .then((response) => {
-        response.data.content = DOMPurify.sanitize(marked(response.data.content));
-        setPost(response.data);
+        if (!response.error) {
+          response.data.content = DOMPurify.sanitize(marked(response.data.content));
+          setPost(response.data);
+          setHasError(false);
+        } else {
+          setHasError(true);
+        }
         setIsFetching(false);
       })
       .catch((error) => {
         console.log(error);
+        setHasError(true);
+        setIsFetching(false);
       });
   }, [postId]);
+
+  if (hasError) {
+    return (
+      <h4 className="font-medium text-gray-500 text-xl text-center my-16">Could not load post</h4>
+    );
+  }
 
   if (isFetching) {
     return (
