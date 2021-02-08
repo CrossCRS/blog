@@ -39,7 +39,7 @@ function PostPage() {
     <div className="bg-white py-6 px-6 my-6 md:my-12 shadow-md border border-gray-200 rounded-md">
       <h2 className="my-0 font-medium text-2xl text-gray-900">{post.title}</h2>
       <div className="flex justify-between">
-        <span className="font-light text-sm text-gray-500">Posted by <Link to={`/user/${post.author_id._id}`} className="font-regular">{post.author_id.name}</Link></span>
+        <span className="font-light text-sm text-gray-500">Posted by <Link to={`/author/${post.author_id.username}`} className="font-regular">{post.author_id.display_name}</Link></span>
         <span className="font-light text-sm text-gray-500">{dateFormat(post.posted_at, 'mmmm dS, yyyy')}</span>
       </div>
       <p className="text-gray-600 my-4" dangerouslySetInnerHTML={{ __html: post.content }} />

@@ -33,7 +33,8 @@ routes(app);
 app.use((req, res, next) => next(createError(404)));
 
 // error handler
-app.use((err, req, res) => {
+// eslint-disable-next-line no-unused-vars
+app.use((err, req, res, next) => {
   if (req.app.get('env') === 'development') {
     res.status(err.status || 500).send({ error: true, message: err.message });
   } else {

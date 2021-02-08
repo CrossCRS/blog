@@ -4,7 +4,7 @@ import classNames from 'classnames';
 
 import { Link } from 'react-router-dom';
 
-function SimplePagination({ currentPage, pageCount }) {
+function SimplePagination({ currentPage, pageCount, path }) {
   const displayNewerLink = (currentPage > 1);
   const displayOlderLink = (currentPage < pageCount);
 
@@ -20,8 +20,8 @@ function SimplePagination({ currentPage, pageCount }) {
 
   return (
     <div className={containerClasses}>
-      {displayNewerLink && <Link className={linkClasses} to={`/page/${parseInt(currentPage, 10) - 1}`}>View newer posts</Link>}
-      {displayOlderLink && <Link className={linkClasses} to={`/page/${parseInt(currentPage, 10) + 1}`}>View older posts</Link>}
+      {displayNewerLink && <Link className={linkClasses} to={`${path}${parseInt(currentPage, 10) - 1}`}>View newer posts</Link>}
+      {displayOlderLink && <Link className={linkClasses} to={`${path}${parseInt(currentPage, 10) + 1}`}>View older posts</Link>}
     </div>
   );
 }
@@ -29,6 +29,7 @@ function SimplePagination({ currentPage, pageCount }) {
 SimplePagination.propTypes = {
   currentPage: propTypes.number.isRequired,
   pageCount: propTypes.number.isRequired,
+  path: propTypes.string.isRequired,
 };
 
 export default SimplePagination;
