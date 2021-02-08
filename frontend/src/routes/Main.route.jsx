@@ -1,13 +1,13 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import Layout from '../Layout';
-import ScrollToTop from '../utils/ScrollToTop';
+import Layout from '../components/Layout';
+import ScrollToTop from '../components/utils/ScrollToTop';
 
-import PostPage from '../../pages/Post.page';
-import PostsListPage from '../../pages/PostsList.page';
-import UserPostsListPage from '../../pages/UserPostsList.page';
-import CustomPagePage from '../../pages/CustomPage.page';
+import PostPage from '../pages/Post.page';
+import PostsListPage from '../pages/PostsList.page';
+import UserPostsListPage from '../pages/UserPostsList.page';
+import CustomPagePage from '../pages/CustomPage.page';
 
 function MainRoute() {
   return (
