@@ -4,10 +4,10 @@ import { Route, Switch } from 'react-router-dom';
 import Layout from '../Layout';
 import ScrollToTop from '../utils/ScrollToTop';
 
-import PostPage from '../../pages/PostPage';
-import PostsListPage from '../../pages/PostsListPage';
-import UserPostsListPage from '../../pages/UserPostsListPage';
-import CustomPagePage from '../../pages/CustomPagePage';
+import PostPage from '../../pages/Post.page';
+import PostsListPage from '../../pages/PostsList.page';
+import UserPostsListPage from '../../pages/UserPostsList.page';
+import CustomPagePage from '../../pages/CustomPage.page';
 
 function MainRoute() {
   return (
