@@ -1,13 +1,29 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 
 import TextLink from './core/TextLink';
 
+import axiosInstance from './api/axiosInstance';
+
 function Header() {
+  const location = useLocation();
   const [isMenuHidden, setMenuHidden] = useState(true);
+  const [menuItems, setMenuItems] = useState([]);
+
+  useEffect(() => {
+    axiosInstance.get('/pages?header=true')
+      .then((response) => {
+        if (!response.error) {
+          setMenuItems(response.data);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   const toggleMenuHidden = () => {
     setMenuHidden(!isMenuHidden);
@@ -26,9 +42,8 @@ function Header() {
       </div>
 
       <div className={`flex uppercase ${isMenuHidden && 'hidden'} md:flex flex-col md:flex-row`}>
-        <TextLink to="/" active>Home</TextLink>
-        <TextLink to="/">About Me</TextLink>
-        <TextLink to="/">Contact</TextLink>
+        <TextLink to="/" active={location.pathname === '/'}>Home</TextLink>
+        {menuItems.map((item) => <TextLink key={item._id} to={`/${item.name}`} active={location.pathname === `/${item.name}`}>{item.title}</TextLink>)}
       </div>
     </header>
   );

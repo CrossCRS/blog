@@ -1,6 +1,4 @@
 const mongoose = require('mongoose');
-// eslint-disable-next-line no-unused-vars
-const User = require('./user.model'); // Require to create the User mongoose model
 
 const { Schema } = mongoose;
 

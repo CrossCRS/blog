@@ -1,7 +1,14 @@
+const pageController = require('../controllers/page.controller');
 const postController = require('../controllers/post.controller');
 const userController = require('../controllers/user.controller');
 
 module.exports = (app) => {
+  // Pages
+  app.route('/api/pages')
+    .get(pageController.get_all_pages);
+  app.route('/api/pages/:name')
+    .get(pageController.get_page_by_name);
+
   // Posts
   app.route('/api/posts')
     .get(postController.get_all_posts);
