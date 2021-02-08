@@ -1,0 +1,18 @@
+[{
+  "_id": {
+    "$oid": "6012c2486b65b10029ab5411"
+  },
+  "username": "johntester",
+  "display_name": "John Tester",
+  "email": "tester@blog.dev",
+  "password": "changeme",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "601c0183133a8012d81d22ad"
+  },
+  "username": "janedoe",
+  "display_name": "Jane Doe",
+  "email": "jdoe@blog.dev",
+  "password": "changeme"
+}]

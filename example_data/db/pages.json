@@ -1,0 +1,37 @@
+[{
+  "_id": {
+    "$oid": "6021955810628f37025a0113"
+  },
+  "name": "aboutme",
+  "title": "About Me",
+  "content": "**About Me Content Here**",
+  "footer": false,
+  "header": true
+},{
+  "_id": {
+    "$oid": "6021959b10628f37025a0115"
+  },
+  "name": "contact",
+  "title": "Contact",
+  "content": "**Contact Content Here**",
+  "footer": true,
+  "header": true
+},{
+  "_id": {
+    "$oid": "602195c210628f37025a0117"
+  },
+  "name": "tos",
+  "title": "Terms",
+  "content": "**ToS Content Here**",
+  "footer": true,
+  "header": false
+},{
+  "_id": {
+    "$oid": "602195e110628f37025a0118"
+  },
+  "name": "privacy",
+  "title": "Privacy",
+  "content": "**Privacy Policy Content Here**",
+  "footer": true,
+  "header": false
+}]
