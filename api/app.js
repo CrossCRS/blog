@@ -18,7 +18,7 @@ mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true 
       console.log(`App listening on port ${PORT}`);
     });
   })
-  .catch((err) => console.log(err));
+  .catch((err) => { console.log(err); process.exit(1); });
 
 app.use(logger('dev'));
 app.use(cors());
