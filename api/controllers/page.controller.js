@@ -1,3 +1,4 @@
+const createError = require('http-errors');
 const Page = require('../models/page.model');
 
 exports.get_all_pages = (req, res, next) => {
@@ -12,15 +13,19 @@ exports.get_all_pages = (req, res, next) => {
 
   Page.find(query)
     .select('_id name title header footer')
-    .then((pages) => {
-      res.send(pages);
-    }).catch(next);
+    .then((pages) => { res.send(pages); })
+    .catch(next);
 };
 
 exports.get_page_by_name = (req, res, next) => {
   const { name } = req.params;
 
   Page.findOne({ name })
-    .then((post) => { res.send(post); })
+    .then((post) => {
+      if (post == null) {
+        next(createError(404, 'Post not found'));
+      }
+      res.send(post);
+    })
     .catch(next);
 };

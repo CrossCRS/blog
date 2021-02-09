@@ -1,3 +1,4 @@
+const createError = require('http-errors');
 const User = require('../models/user.model');
 
 exports.get_user_by_username = (req, res, next) => {
@@ -5,6 +6,11 @@ exports.get_user_by_username = (req, res, next) => {
 
   User.findOne({ username })
     .select('username display_name')
-    .then((user) => { res.send(user); })
+    .then((user) => {
+      if (user == null) {
+        next(createError(404, 'User not found'));
+      }
+      res.send(user);
+    })
     .catch(next);
 };

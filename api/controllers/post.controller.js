@@ -1,3 +1,4 @@
+const createError = require('http-errors');
 const Post = require('../models/post.model');
 const User = require('../models/user.model');
 
@@ -29,7 +30,12 @@ exports.get_post_by_id = (req, res, next) => {
 
   Post.findById(id)
     .populate({ path: 'author_id', select: 'username display_name' })
-    .then((post) => { res.send(post); })
+    .then((post) => {
+      if (post == null) {
+        next(createError(404, 'Post not found'));
+      }
+      res.send(post);
+    })
     .catch(next);
 };
 
@@ -41,6 +47,10 @@ exports.get_posts_by_username = (req, res, next) => {
   User.findOne({ username })
     .select('_id')
     .then((user) => {
+      if (user == null) {
+        next(createError(404, 'User not found'));
+      }
+
       Post.find({ author_id: user._id })
         .sort('-posted_at')
         .skip(skip)

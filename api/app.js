@@ -30,7 +30,7 @@ app.use(express.static('public'));
 routes(app);
 
 // catch 404 and forward to error handler
-app.use((req, res, next) => next(createError(404)));
+app.use((req, res, next) => next(createError(404, 'Route not found')));
 
 // error handler
 // eslint-disable-next-line no-unused-vars
@@ -38,6 +38,6 @@ app.use((err, req, res, next) => {
   if (req.app.get('env') === 'development') {
     res.status(err.status || 500).send({ error: true, message: err.message });
   } else {
-    res.status(err.status || 500).send({ error: true });
+    res.status(err.status || 500).send({ error: true, message: err.expose ? err.message : undefined });
   }
 });
