@@ -11,3 +11,9 @@
 |-----------------|----------------------------------------------------|------|--------|
 | /api/users/**:username** | Returns a user of username **:username** | - | - |
 | /api/users/**:username**/posts?skip=**x**&limit=**y** | Returns user's posts with optional limit and skip params | - | - |
+
+## /api/pages
+| **Route** | **GET** | **POST** | **DELETE** |
+|-----------------|----------------------------------------------------|------|--------|
+| /api/pages?header=**true\|false**&footer=**true\|false** | Returns custom pages with optional header or footer params | - | - |
+| /api/pages/**:name** | Returns a custom page of name **:name** | - | - |
