@@ -1,8 +1,13 @@
+const loginController = require('../controllers/login.controller');
 const pageController = require('../controllers/page.controller');
 const postController = require('../controllers/post.controller');
 const userController = require('../controllers/user.controller');
 
 module.exports = (app) => {
+  // Login
+  app.route('/api/login')
+    .post(loginController.login);
+
   // Pages
   app.route('/api/pages')
     .get(pageController.get_all_pages);

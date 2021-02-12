@@ -1,7 +1,9 @@
+require('dotenv').config();
 const createError = require('http-errors');
 const express = require('express');
 const logger = require('morgan');
 const cors = require('cors');
+const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
 const routes = require('./routes/routes');
@@ -24,8 +26,9 @@ app.use(logger('dev'));
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
-app.use(express.static('public'));
+// app.use(express.static('public'));
 
 routes(app);
 
