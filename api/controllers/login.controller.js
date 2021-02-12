@@ -1,11 +1,16 @@
 const createError = require('http-errors');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const { body, validationResult } = require('express-validator/check');
 const User = require('../models/user.model');
 
 exports.login = (req, res, next) => {
-  const email = String(req.body.email);
-  const password = String(req.body.password);
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    next(createError(422, 'Invalid payload'));
+  }
+
+  const { email, password } = req.body;
 
   User.findOne({ email })
     .then((user) => {
@@ -36,4 +41,16 @@ exports.login = (req, res, next) => {
       }
     })
     .catch(next);
+};
+
+exports.validate = (method) => {
+  switch (method) {
+    case 'login': {
+      return [
+        body('email', 'Invalid email').exists().isEmail(),
+        body('password').exists().isString(),
+      ];
+    }
+  }
+  return [];
 };

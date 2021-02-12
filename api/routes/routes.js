@@ -6,7 +6,7 @@ const userController = require('../controllers/user.controller');
 module.exports = (app) => {
   // Login
   app.route('/api/login')
-    .post(loginController.login);
+    .post(loginController.validate('login'), loginController.login);
 
   // Pages
   app.route('/api/pages')
