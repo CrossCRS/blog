@@ -1,7 +1,7 @@
 const createError = require('http-errors');
 const jwt = require('jsonwebtoken');
 
-exports.isAdmin = (req, res, next) => {
+exports.isAuthenticated = (req, res, next) => {
   const authHeader = req.headers.authorization;
 
   if (!authHeader) {
@@ -17,5 +17,12 @@ exports.isAdmin = (req, res, next) => {
 
     req.user = user;
   });
+  next();
+};
+
+exports.isAdmin = (req, res, next) => {
+  if (!req.user.is_admin) {
+    next(createError(403, 'Access denied'));
+  }
   next();
 };
