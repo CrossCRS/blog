@@ -3,7 +3,6 @@ const createError = require('http-errors');
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
-const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
 const routes = require('./routes/routes');
@@ -26,7 +25,6 @@ app.use(morgan(app.get('env') === 'development' ? 'dev' : 'common'));
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(bodyParser.json());
 
 // app.use(express.static('public'));
 
