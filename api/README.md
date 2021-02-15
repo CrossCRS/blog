@@ -3,7 +3,7 @@
 ## /api/login
 | **Route** | **GET** | **POST** | **DELETE** |
 |-----------------|----------------------------------------------------|------|--------|
-| /api/login | **Body {email: '', password: ''}**<br /> Returns JWT token. | - | - |
+| /api/login | - | **Body {email: '', password: ''}**<br /> Returns JWT token. | - |
 
 ## /api/posts
 | **Route** | **GET** | **POST** | **DELETE** |
