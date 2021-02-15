@@ -17,7 +17,7 @@ exports.get_all_posts = (req, res, next) => {
       Post.estimatedDocumentCount().then((number) => {
         const resp = {
           size: number, // Total posts count
-          next: (skip + limit < number) ? `${req._parsedUrl.pathname.path}?skip=${skip + limit}&limit=${limit}` : null, // Next posts page link
+          next: (skip + limit < number) ? `${req._parsedUrl.pathname}?skip=${skip + limit}&limit=${limit}` : null, // Next posts page link
           posts, // Posts array
         };
         res.send(resp);
