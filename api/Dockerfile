@@ -6,6 +6,6 @@ WORKDIR /home/node/app
 
 COPY --chown=node:node package*.json /home/node/app/
 
-RUN npm install
+RUN npm ci
 
 CMD ["npm", "run", "dev"]
