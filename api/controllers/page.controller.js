@@ -23,7 +23,7 @@ exports.get_page_by_name = (req, res, next) => {
   Page.findOne({ name })
     .then((post) => {
       if (post == null) {
-        next(createError(404, 'Post not found'));
+        next(createError(404, 'Page not found'));
       }
       res.send(post);
     })
