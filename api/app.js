@@ -21,13 +21,14 @@ mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true 
   })
   .catch((err) => { console.log(err); process.exit(1); });
 
-app.use(morgan(app.get('env') === 'development' ? 'dev' : 'common'));
+app.use(morgan(app.get('env') === 'development' ? 'dev' : 'common')); // Request logging
 app.use(cors());
-app.use(express.json());
+app.use(express.json()); // Body parser middleware
 app.use(express.urlencoded({ extended: false }));
 
 // app.use(express.static('public'));
 
+// Setup routes
 routes(app);
 
 // catch 404 and forward to error handler

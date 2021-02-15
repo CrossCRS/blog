@@ -1,3 +1,5 @@
+// Util component used to scroll to top on page change
+// https://stackoverflow.com/a/54343182
 import { useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 
