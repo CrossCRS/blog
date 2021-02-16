@@ -1,7 +1,7 @@
 const createError = require('http-errors');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const { body, validationResult } = require('express-validator/check');
+const { body, validationResult } = require('express-validator');
 const User = require('../models/user.model');
 
 exports.login = (req, res, next) => {
