@@ -9,11 +9,15 @@ const { expect } = chai;
 chai.use(chaiHttp);
 
 describe('Pages', () => {
-  after(() => {
-    server.server.close();
+  before((done) => {
+    server.on('app_ready', done);
   });
 
-  describe('/GET pages', () => {
+  after((done) => {
+    server.server.close(done);
+  });
+
+  describe('GET /api/pages', () => {
     it('should GET no pages', (done) => {
       chai.request(server)
         .get('/api/pages')

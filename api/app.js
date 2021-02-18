@@ -23,6 +23,7 @@ const app = express();
 if (app.get('env') === 'test') { // Tests setup
   const { MongoMemoryServer } = require('mongodb-memory-server');
   const bcrypt = require('bcrypt');
+  const jwt = require('jsonwebtoken');
   const User = require('./models/user.model');
   const mongoServer = new MongoMemoryServer();
 
@@ -30,21 +31,28 @@ if (app.get('env') === 'test') { // Tests setup
     mongoose.connect(mongoUri, MONGOOSE_OPTS)
       .then(() => {
         // Create an admin account for testing
-        User.create({
+        const user = new User({
           username: 'admin',
           display_name: 'Administrator',
           email: 'admin@blog.dev',
           is_admin: true,
           password: bcrypt.hashSync('P@ssw0rd', parseInt(process.env.BCRYPT_SALT_ROUNDS, 10)),
-        }, (err) => {
-          if (err) { console.log('Couldn\'t create a testing admin account!'); process.exit(1); }
         });
+        user.save();
+
+        // Create a temporary token for testing
+        app.testing_jwt = jwt.sign({
+          display_name: user.display_name,
+          username: user.username,
+          email: user.email,
+          is_admin: user.is_admin,
+        }, process.env.JWT_SECRET, { expiresIn: '5m' });
 
         // Start on random port for parallel testing
         const TEST_PORT = Math.floor(Math.random() * (9999 - 6000 + 1)) + 6000;
 
         // Extend onto the app object so we can close the server after all tests are done
-        app.server = app.listen(TEST_PORT, process.env.IP);
+        app.server = app.listen(TEST_PORT, process.env.IP, () => app.emit('app_ready'));
       })
       .catch((err) => { console.log(err); process.exit(1); });
   });

@@ -6,7 +6,7 @@
     "start": "node app.js",
     "dev": "npx nodemon app.js",
     "lint": "eslint . --fix",
-    "test": "mocha --exit"
+    "test": "mocha --exit --parallel"
   },
   "dependencies": {
     "bcrypt": "^5.0.0",
