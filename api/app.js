@@ -31,21 +31,24 @@ if (app.get('env') === 'test') { // Tests setup
     mongoose.connect(mongoUri, MONGOOSE_OPTS)
       .then(() => {
         // Create an admin account for testing
-        const user = new User({
+        app.tests = {};
+        app.tests.user_admin_password = 'P@ssw0rd';
+        app.tests.user_admin = {
           username: 'admin',
           display_name: 'Administrator',
           email: 'admin@blog.dev',
           is_admin: true,
-          password: bcrypt.hashSync('P@ssw0rd', parseInt(process.env.BCRYPT_SALT_ROUNDS, 10)),
-        });
+          password: bcrypt.hashSync(app.tests.user_admin_password, parseInt(process.env.BCRYPT_SALT_ROUNDS, 10)),
+        };
+        const user = new User(app.tests.user_admin);
         user.save();
 
         // Create a temporary token for testing
-        app.testing_jwt = jwt.sign({
-          display_name: user.display_name,
-          username: user.username,
-          email: user.email,
-          is_admin: user.is_admin,
+        app.tests.jwt_admin = jwt.sign({
+          display_name: app.tests.user_admin.display_name,
+          username: app.tests.user_admin.username,
+          email: app.tests.user_admin.email,
+          is_admin: app.tests.user_admin.is_admin,
         }, process.env.JWT_SECRET, { expiresIn: '5m' });
 
         // Start on random port for parallel testing

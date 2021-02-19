@@ -21,7 +21,7 @@ describe('Login', () => {
     it('should return a token for valid requests', (done) => {
       chai.request(server)
         .post('/api/login')
-        .send({ email: 'admin@blog.dev', password: 'P@ssw0rd' })
+        .send({ email: server.tests.user_admin.email, password: server.tests.user_admin_password })
         .end((err, res) => {
           expect(res).to.have.status(200);
           expect(res.body).to.have.property('token').that.is.a('string');
