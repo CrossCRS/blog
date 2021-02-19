@@ -28,9 +28,9 @@ describe('Pages', () => {
         });
     });
 
-    it('should GET 404 for invalid post id', (done) => {
+    it('should GET 404 for invalid page id', (done) => {
       chai.request(server)
-        .get('/api/pages/invalidpostid')
+        .get('/api/pages/invalidpageid')
         .end((err, res) => {
           expect(res).to.have.status(404);
           expect(res.body).to.have.property('error').that.is.true;
