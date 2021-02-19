@@ -1,4 +1,5 @@
 const createError = require('http-errors');
+const mongoose = require('mongoose');
 const Post = require('../models/post.model');
 const User = require('../models/user.model');
 
@@ -27,6 +28,11 @@ exports.get_all_posts = (req, res, next) => {
 
 exports.get_post_by_id = (req, res, next) => {
   const id = req.params.postId;
+
+  // Return basic 404 on invalid id
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    next(createError(404, 'Post not found'));
+  }
 
   Post.findById(id)
     .populate({ path: 'author_id', select: 'username display_name' })
