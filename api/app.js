@@ -21,6 +21,7 @@ const MONGOOSE_OPTS = {
 const app = express();
 
 if (app.get('env') === 'test') { // Tests setup
+  // TODO: Fix tests using one server instance
   const { MongoMemoryServer } = require('mongodb-memory-server');
   const bcrypt = require('bcrypt');
   const jwt = require('jsonwebtoken');
@@ -30,8 +31,8 @@ if (app.get('env') === 'test') { // Tests setup
   mongoServer.getUri().then((mongoUri) => {
     mongoose.connect(mongoUri, MONGOOSE_OPTS)
       .then(() => {
-        // Create an admin account for testing
         app.tests = {};
+        // Create an admin account for testing
         app.tests.user_admin_password = 'P@ssw0rd';
         app.tests.user_admin = {
           username: 'admin',
