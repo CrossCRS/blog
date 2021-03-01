@@ -1,30 +1,24 @@
-/* eslint-disable no-unused-expressions */
-process.env.NODE_ENV = 'test';
-const chai = require('chai');
-const chaiHttp = require('chai-http');
-const server = require('../app');
-
-const { expect } = chai;
-
-chai.use(chaiHttp);
+const request = require('supertest');
+const app = require('../app');
 
 describe('Users', () => {
-  before((done) => {
-    server.on('app_ready', done);
+  beforeAll((done) => {
+    app.on('app_ready', done);
   });
 
-  after((done) => {
-    server.server.close(done);
+  afterAll(async () => {
+    await app.db.disconnect();
+    await app.dbServer.stop();
+    await app.server.close();
   });
 
   describe('GET /api/users', () => {
-    it('should GET a valid user', (done) => {
-      chai.request(server)
-        .get(`/api/users/${server.tests.user_admin.username}`)
-        .end((err, res) => {
-          expect(res).to.have.status(200);
-          done();
-        });
+    it('should GET a valid user', async (done) => {
+      const res = await request(app)
+        .get(`/api/users/${app.tests.user_admin.username}`);
+
+      expect(res.statusCode).toEqual(200);
+      done();
     });
   });
 });

@@ -21,7 +21,6 @@ const MONGOOSE_OPTS = {
 const app = express();
 
 if (app.get('env') === 'test') { // Tests setup
-  // TODO: Fix tests using one server instance
   const { MongoMemoryServer } = require('mongodb-memory-server');
   const bcrypt = require('bcrypt');
   const jwt = require('jsonwebtoken');
@@ -30,7 +29,7 @@ if (app.get('env') === 'test') { // Tests setup
 
   mongoServer.getUri().then((mongoUri) => {
     mongoose.connect(mongoUri, MONGOOSE_OPTS)
-      .then(() => {
+      .then((db) => {
         app.tests = {};
         // Create an admin account for testing
         app.tests.user_admin_password = 'P@ssw0rd';
@@ -56,6 +55,8 @@ if (app.get('env') === 'test') { // Tests setup
         const TEST_PORT = Math.floor(Math.random() * (9999 - 6000 + 1)) + 6000;
 
         // Extend onto the app object so we can close the server after all tests are done
+        app.dbServer = mongoServer;
+        app.db = db;
         app.server = app.listen(TEST_PORT, process.env.IP, () => app.emit('app_ready'));
       })
       .catch((err) => { console.log(err); process.exit(1); });

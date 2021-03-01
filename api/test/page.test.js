@@ -1,42 +1,34 @@
-/* eslint-disable no-unused-expressions */
-process.env.NODE_ENV = 'test';
-const chai = require('chai');
-const chaiHttp = require('chai-http');
-const server = require('../app');
-
-const { expect } = chai;
-
-chai.use(chaiHttp);
+const request = require('supertest');
+const app = require('../app');
 
 describe('Pages', () => {
-  before((done) => {
-    server.on('app_ready', done);
+  beforeAll((done) => {
+    app.on('app_ready', done);
   });
 
-  after((done) => {
-    server.server.close(done);
+  afterAll(async () => {
+    await app.db.disconnect();
+    await app.dbServer.stop();
+    await app.server.close();
   });
 
   describe('GET /api/pages', () => {
-    it('should GET no pages', (done) => {
-      chai.request(server)
-        .get('/api/pages')
-        .end((err, res) => {
-          expect(res).to.have.status(200);
-          expect(res.body).to.be.an('array').that.is.empty;
-          done();
-        });
+    it('should GET no pages', async (done) => {
+      const res = await request(app)
+        .get('/api/pages');
+
+      expect(res.statusCode).toEqual(200);
+      done();
     });
 
-    it('should GET 404 for invalid page id', (done) => {
-      chai.request(server)
-        .get('/api/pages/invalidpageid')
-        .end((err, res) => {
-          expect(res).to.have.status(404);
-          expect(res.body).to.have.property('error').that.is.true;
-          expect(res.body).to.have.property('message');
-          done();
-        });
+    it('should GET 404 for invalid page id', async (done) => {
+      const res = await request(app)
+        .get('/api/pages/invalidpageid');
+
+      expect(res.statusCode).toEqual(404);
+      expect(res.body).toHaveProperty('error', true);
+      expect(res.body).toHaveProperty('message');
+      done();
     });
   });
 });

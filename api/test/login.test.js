@@ -1,74 +1,64 @@
-/* eslint-disable no-unused-expressions */
-process.env.NODE_ENV = 'test';
-const chai = require('chai');
-const chaiHttp = require('chai-http');
-const server = require('../app');
-
-const { expect } = chai;
-
-chai.use(chaiHttp);
+const request = require('supertest');
+const app = require('../app');
 
 describe('Login', () => {
-  before((done) => {
-    server.on('app_ready', done);
+  beforeAll((done) => {
+    app.on('app_ready', done);
   });
 
-  after((done) => {
-    server.server.close(done);
+  afterAll(async () => {
+    await app.db.disconnect();
+    await app.dbServer.stop();
+    await app.server.close();
   });
 
   describe('POST /api/login', () => {
-    it('should return a token for valid requests', (done) => {
-      chai.request(server)
+    it('should return a token for valid requests', async (done) => {
+      const res = await request(app)
         .post('/api/login')
-        .send({ email: server.tests.user_admin.email, password: server.tests.user_admin_password })
-        .end((err, res) => {
-          expect(res).to.have.status(200);
-          expect(res.body).to.have.property('token').that.is.a('string');
-          done();
-        });
+        .send({ email: app.tests.user_admin.email, password: app.tests.user_admin_password });
+
+      expect(res.statusCode).toEqual(200);
+      expect(res.body).toHaveProperty('token');
+      done();
     });
 
-    it('should return 401 for requests with invalid credentials', (done) => {
-      chai.request(server)
+    it('should return 401 for requests with invalid credentials', async (done) => {
+      const res = await request(app)
         .post('/api/login')
-        .send({ email: 'invalid@email.com', password: 'admin1' })
-        .end((err, res) => {
-          expect(res).to.have.status(401);
-          expect(res.body).to.have.property('error').that.is.true;
-          expect(res.body).to.have.property('message');
-          done();
-        });
+        .send({ email: 'invalid@email.com', password: 'admin1' });
+
+      expect(res.statusCode).toEqual(401);
+      expect(res.body).toHaveProperty('error', true);
+      expect(res.body).toHaveProperty('message');
+      done();
     });
 
-    it('should return 422 for requests with invalid payload', (done) => {
-      chai.request(server)
+    it('should return 422 for requests with invalid payload', async (done) => {
+      const res = await request(app)
         .post('/api/login')
-        .send({ sample: 'test' })
-        .end((err, res) => {
-          expect(res).to.have.status(422);
-          done();
-        });
+        .send({ sample: 'test' });
+
+      expect(res.statusCode).toEqual(422);
+      done();
     });
 
-    it('should return 422 for requests with invalid email', (done) => {
-      chai.request(server)
+    it('should return 422 for requests with invalid email', async (done) => {
+      const res = await request(app)
         .post('/api/login')
-        .send({ email: 'abc', password: 'admin1' })
-        .end((err, res) => {
-          expect(res).to.have.status(422);
-          done();
-        });
+        .send({ email: 'abc', password: 'admin1' });
+
+      expect(res.statusCode).toEqual(422);
+      done();
     });
 
-    it('should return 422 for requests with no password', (done) => {
-      chai.request(server)
+    it('should return 422 for requests with no password', async (done) => {
+      const res = await request(app)
         .post('/api/login')
-        .send({ email: 'admin@blog.dev' })
-        .end((err, res) => {
-          expect(res).to.have.status(422);
-          done();
-        });
+        .send({ email: 'admin@blog.dev' });
+
+      expect(res.statusCode).toEqual(422);
+      done();
     });
   });
 });
