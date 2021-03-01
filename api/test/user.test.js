@@ -18,6 +18,7 @@ describe('Users', () => {
         .get(`/api/users/${app.tests.user_admin.username}`);
 
       expect(res.statusCode).toEqual(200);
+      expect(res.body).not.toHaveProperty('password');
       done();
     });
   });
