@@ -27,6 +27,7 @@ exports.login = (req, res, next) => {
 
           // Create JWT token
           jwt.sign({
+            _id: user._id,
             display_name: user.display_name,
             username: user.username,
             email: user.email,
