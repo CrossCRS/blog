@@ -16,6 +16,7 @@ const MONGOOSE_OPTS = {
   useCreateIndex: true,
   useNewUrlParser: true,
   useUnifiedTopology: true,
+  useFindAndModify: false,
 };
 
 const app = express();
@@ -40,11 +41,12 @@ if (app.get('env') === 'test') { // Tests setup
           is_admin: true,
           password: bcrypt.hashSync(app.tests.user_admin_password, parseInt(process.env.BCRYPT_SALT_ROUNDS, 10)),
         };
-        const user = new User(app.tests.user_admin);
-        user.save();
+        const userAdmin = new User(app.tests.user_admin);
+        userAdmin.save();
 
         // Create a temporary token for testing
         app.tests.jwt_admin = jwt.sign({
+          _id: userAdmin._id,
           display_name: app.tests.user_admin.display_name,
           username: app.tests.user_admin.username,
           email: app.tests.user_admin.email,

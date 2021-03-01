@@ -22,4 +22,16 @@ describe('Users', () => {
       done();
     });
   });
+
+  describe('GET /api/users', () => {
+    it('should GET 404 for invalid user', async (done) => {
+      const res = await request(app)
+        .get('/api/users/invaliduser');
+
+      expect(res.statusCode).toEqual(404);
+      expect(res.body).toHaveProperty('error', true);
+      expect(res.body).toHaveProperty('message');
+      done();
+    });
+  });
 });
