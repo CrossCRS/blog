@@ -33,8 +33,8 @@ function PostsListPage({ user }) {
         }
         setIsFetching(false);
       })
-      .catch((error) => {
-        console.log(error);
+      .catch((/* error */) => {
+        // console.log(error);
         setIsFetching(false);
         setHasError(true);
       });

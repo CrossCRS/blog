@@ -28,8 +28,8 @@ function PostPage() {
         }
         setIsFetching(false);
       })
-      .catch((error) => {
-        console.log(error);
+      .catch((/* error */) => {
+        // console.log(error);
         setHasError(true);
         setIsFetching(false);
       });
